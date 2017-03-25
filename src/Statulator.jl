@@ -69,12 +69,26 @@ if q1 == "p"
             println("The interval is (", interval.lower, ", ", interval.upper, ")")
             println("We can state with ", (lvl*100), "% confidence that the true proportion lies between ", interval.lower, " and ", interval.upper, ".")
         elseif q3 == "2"
-            p1 = parse(Float64, input("What is your first sample proportion? "))
-            n1 = parse(Float64, input("What is your first sample size? "))
-            p2 = parse(Float64, input("What is your second sample proportion? "))
-            n2 = parse(Float64, input("What is your second sample size? "))
-            lvl = parse(Float64, input("What is your needed confidence level? (in proportion)"))
-            two_prop_z_int(p1, n1, p2, n2, lvl)
+            p1 = 0
+            n1 = 0
+            p2 = 0
+            n2 = 0
+            lvl = 0
+
+            try
+                p1 = parse(Float64, input("What is your first sample proportion? "))
+                n1 = parse(Float64, input("What is your first sample size? "))
+                p2 = parse(Float64, input("What is your second sample proportion? "))
+                n2 = parse(Float64, input("What is your second sample size? "))
+                lvl = parse(Float64, input("What is your needed confidence level? (in proportion)"))
+            catch
+                println("You must enter a numeric value.")
+            end
+
+            interval = two_prop_z_int(p1, n1, p2, n2, lvl)
+
+            println("The interval is (", interval.lower, ", ", interval.upper, ")")
+            println("We can state with ", (lvl*100), "% confidence that the true proportion lies between ", interval.lower, " and ", interval.upper, ".")
         end
     end
 elseif q1 == "m"
