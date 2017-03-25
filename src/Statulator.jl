@@ -25,7 +25,12 @@ if q1 == "p"
             lvl = parse(Float64, input("What is your needed confidence level? "))
             one_prop_z_int(p, n, lvl)
         elseif q3 == "2"
-            println("2-proportion Z-interval")
+            p1 = parse(Float64, input("What is your first sample proportion? "))
+            n1 = parse(Float64, input("What is your first sample size? "))
+            p2 = parse(Float64, input("What is your second sample proportion? "))
+            n2 = parse(Float64, input("What is your second sample size? "))
+            lvl = parse(Float64, input("What is your needed confidence level? "))
+            two_prop_z_int(p1, n1, p2, n2, lvl)
         end
     end
 elseif q1 == "m"
