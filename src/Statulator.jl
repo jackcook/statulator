@@ -1,8 +1,8 @@
 module Statulator
 
 function input(prompt::AbstractString="")
-  print(prompt)
-  return chomp(readline())
+    print(prompt)
+    return chomp(readline())
 end
 
 q1 = input("Is this is a problem of sample proportions or means? [p/m] ")
