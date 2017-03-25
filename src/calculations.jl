@@ -1,5 +1,7 @@
 using Distributions
 
+include("confidence_interval.jl")
+
 function one_prop_z_int(p, n, lvl)
     distribution = Normal()
 
@@ -15,8 +17,7 @@ function one_prop_z_int(p, n, lvl)
     lowest_value = round(p - critical_value * standard_error, 4)
     highest_value = round(p + critical_value * standard_error, 4)
 
-    println("The interval is (", lowest_value, ", ", highest_value, ")")
-    println("We can state with ", (lvl*100), "% confidence that the true proportion lies between ", lowest_value, " and ", highest_value, ".")
+    return ConfidenceInterval(lowest_value, highest_value)
 end
 
 function two_prop_z_int(p1, p2, n1, n2, lvl)

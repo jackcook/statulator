@@ -52,14 +52,22 @@ if q1 == "p"
         end
     elseif q2 == "i"
         if q3 == "1"
+            p = 0
+            n = 0
+            lvl = 0
+
             try
                 p = parse(Float64, input("What is your sample proportion? "))
                 n = parse(Float64, input("What is your sample size? "))
                 lvl = parse(Float64, input("What is your needed confidence level? (in proportion) "))
-                one_prop_z_int(p, n, lvl)
             catch
                 println("You must enter a numeric value.")
             end
+
+            interval = one_prop_z_int(p, n, lvl)
+
+            println("The interval is (", interval.lower, ", ", interval.upper, ")")
+            println("We can state with ", (lvl*100), "% confidence that the true proportion lies between ", interval.lower, " and ", interval.upper, ".")
         elseif q3 == "2"
             p1 = parse(Float64, input("What is your first sample proportion? "))
             n1 = parse(Float64, input("What is your first sample size? "))
