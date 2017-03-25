@@ -88,7 +88,7 @@ if q1 == "p"
             interval = two_prop_z_int(p1, n1, p2, n2, lvl)
 
             println("The interval is (", interval.lower, ", ", interval.upper, ")")
-            println("We can state with ", (lvl*100), "% confidence that the true proportion lies between ", interval.lower, " and ", interval.upper, ".")
+            println("We can state with ", (lvl*100), "% confidence that the difference in the true proportion lies between ", interval.lower, " and ", interval.upper, ".")
         end
     end
 elseif q1 == "m"
