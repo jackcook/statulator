@@ -1,5 +1,5 @@
-using Statulator
 using Base.Test
 
-# write your own tests here
-@test 1 == 2
+include("../src/calculations.jl")
+
+@test one_prop_z_int(0.5, 100, 0.95) == ConfidenceInterval(0.402, 0.598)
