@@ -38,9 +38,17 @@ if q1 == "p"
             n = parse(Float64, input("What is your sample size? "))
             alpha = parse(Float64, input("What is your alpha level?"))
             prop = parse(Float64, input("Is your Alternate hypothesis '!=','>', or '<'?"))
-            one_prop_z_test(p,psample,n,alpha,prop)
+            one_prop_z_test(p, psample, n, alpha, prop)
         elseif q3 == "2"
-            println("2-proportion Z-test")
+            p1 = parse(Float64, input("What is your first population proportion? "))
+            psample1 = parse(Float64, input("What is your first sample proportion?"))
+            n1 = parse(Float64, input("What is your first sample size? "))
+            p2 = parse(Float64, input("What is your second population proportion? "))
+            psample2 = parse(Float64, input("What is your second sample proportion?"))
+            n2 = parse(Float64, input("What is your second sample size? "))
+            alpha = parse(Float64, input("What is your alpha level?"))
+            prop = parse(Float64, input("Is your Alternate hypothesis '!=','>', or '<'?"))
+            one_prop_z_test(p1, psample1, n1, p2, psample2, n2, alpha, prop)
         end
     elseif q2 == "i"
         if q3 == "1"
