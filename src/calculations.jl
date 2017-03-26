@@ -53,3 +53,20 @@ function two_prop_z_int(p1, n1, p2, n2, lvl)
 
     return ConfidenceInterval(lowest_value, highest_value)
 end
+
+function z_interval(x̄, sx, n, lvl)
+    distribution = Normal()
+
+    if n >= 30
+        println("Conditions weren't met, using t-distribution...\n")
+        distribution = TDist(n - 1)
+    end
+
+    standard_error = sx / sqrt(n)
+    critical_value = quantile(distribution, lvl + (1 - lvl) / 2)
+
+    lowest_value = round(x̄ - critical_value * standard_error, 4)
+    highest_value = round(x̄ + critical_value * standard_error, 4)
+
+    return ConfidenceInterval(lowest_value, highest_value)
+end
