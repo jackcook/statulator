@@ -94,7 +94,7 @@ if q1 == "p"
             try
                 p = parse(Float64, input("What is your sample proportion? "))
                 n = parse(Float64, input("What is your sample size? "))
-                lvl = parse(Float64, input("What is your needed confidence level? (in proportion) "))
+                lvl = parse(Float64, input("What is your needed confidence level? "))
             catch
                 terminate("You must enter a numeric value.")
             end
@@ -135,7 +135,24 @@ elseif q1 == "m"
         end
     elseif q2 == "i"
         if q3 == "1"
-            println("Z-interval")
+            x̄ = 0
+            sx = 0
+            n = 0
+            lvl = 0
+
+            try
+                x̄ = parse(Float64, input("What is your sample mean? "))
+                sx = parse(Float64, input("What is your sample standard deviation? "))
+                n = parse(Float64, input("What is your sample size? "))
+                lvl = parse(Float64, input("What is your needed confidence level? "))
+            catch
+                terminate("You must enter a numeric value.")
+            end
+
+            interval = z_interval(x̄, sx, n, lvl)
+
+            println("The interval is (", interval.lower, ", ", interval.upper, ")")
+            println("We can state with ", (lvl*100), "% confidence that the true mean lies between ", interval.lower, " and ", interval.upper, ".")
         elseif q3 == "2"
             println("2-proportion Z-interval")
         end
