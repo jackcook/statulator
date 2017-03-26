@@ -33,12 +33,28 @@ end
 if q1 == "p"
     if q2 == "t"
         if q3 == "1"
-            p = parse(Float64, input("What is your population proportion? "))
-            psample = parse(Float64, input("What is your sample proportion?"))
-            n = parse(Float64, input("What is your sample size? "))
-            alpha = parse(Float64, input("What is your alpha level?"))
-            prop = parse(Float64, input("Is your Alternate hypothesis '!=','>', or '<'?"))
-            one_prop_z_test(p, psample, n, alpha, prop)
+            p = 0
+            p0 = 0
+            n = 0
+            alpha = 0
+            alt = ""
+
+            try
+                p = parse(Float64, input("What is your sample proportion? "))
+                p0 = parse(Float64, input("What is your assumed population proportion? "))
+                n = parse(Float64, input("What is your sample size? "))
+                alpha = parse(Float64, input("What is your alpha level? "))
+                alt = input("Is your alternate hypothesis '!=', '>', or '<'? ")
+            catch
+                terminate("You must enter a numeric value.")
+            end
+
+            if alt != "!=" && alt != ">" && alt != "<"
+                terminate("That wasn't an option.")
+            end
+
+            p_value = one_prop_z_test(p, p0, n, alpha, alt)
+            println("The calculated p-value is ", p_value)
         elseif q3 == "2"
             p1 = parse(Float64, input("What is your first population proportion? "))
             psample1 = parse(Float64, input("What is your first sample proportion?"))
@@ -61,7 +77,7 @@ if q1 == "p"
                 n = parse(Float64, input("What is your sample size? "))
                 lvl = parse(Float64, input("What is your needed confidence level? (in proportion) "))
             catch
-                println("You must enter a numeric value.")
+                terminate("You must enter a numeric value.")
             end
 
             interval = one_prop_z_int(p, n, lvl)
@@ -82,7 +98,7 @@ if q1 == "p"
                 n2 = parse(Float64, input("What is your second sample size? "))
                 lvl = parse(Float64, input("What is your needed confidence level? (in proportion)"))
             catch
-                println("You must enter a numeric value.")
+                terminate("You must enter a numeric value.")
             end
 
             interval = two_prop_z_int(p1, n1, p2, n2, lvl)
