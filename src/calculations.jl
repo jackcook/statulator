@@ -32,9 +32,13 @@ function one_prop_z_test(p, p0, n, alpha, alt)
     elseif alt == ">"
         return round(1 - cdf(distribution, p), 4)
     elseif alt == "!="
-        return round(2 * cdf(distribution, p), 4)
+        if p > p0
+            return round(2 * (1 - cdf(distribution, p)), 4)
+        else
+            return round(2 * cdf(distribution, p), 4)
+        end
     else
-        return 0
+        return -1
     end
 end
 
