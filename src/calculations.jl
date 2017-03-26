@@ -42,6 +42,25 @@ function one_prop_z_test(p, p0, n, alpha, alt)
     end
 end
 
+function two_prop_z_test(p1, n1, p2, n2, alpha, alt)
+    p_pooled = (p1*n1 + p2*n2) / (n1 + n2)
+    distribution = Normal(0, sqrt((p_pooled/n1) + (p_pooled/n2)))
+
+    if alt == "<"
+        return round(cdf(distribution, p1-p2), 4)
+    elseif alt == ">"
+        return round(1 - cdf(distribution, p1-p2), 4)
+    elseif alt == "!="
+        if abs(p1-p2) > p_pooled
+            return round(2 * (1 - cdf(distribution, p1-p2)), 4)
+        else
+            return round(2 * cdf(distribution, p1-p2), 4)
+        end
+    else
+        return -1
+    end
+end
+
 function two_prop_z_int(p1, n1, p2, n2, lvl)
     standard_error = sqrt(((p1 * (1-p1)) / n1) + ((p2 * (1-p2)) / n2))
 

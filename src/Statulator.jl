@@ -53,19 +53,37 @@ if q1 == "p"
                 terminate("That wasn't an option.")
             end
 
-            p_value = one_prop_z_test(p, p0, n, alpha, alt)
+            p_value = one_prop_z_test(p, p0, n, alpha, alt, p_pooled)
             println("The calculated p-value is ", p_value)
             println("If the population proportion is ", p0, " then the probability of observing a sample proportion of ", p, " is ", p_value, ".")
         elseif q3 == "2"
-            p1 = parse(Float64, input("What is your first population proportion? "))
-            psample1 = parse(Float64, input("What is your first sample proportion?"))
-            n1 = parse(Float64, input("What is your first sample size? "))
-            p2 = parse(Float64, input("What is your second population proportion? "))
-            psample2 = parse(Float64, input("What is your second sample proportion?"))
-            n2 = parse(Float64, input("What is your second sample size? "))
-            alpha = parse(Float64, input("What is your alpha level?"))
-            prop = parse(Float64, input("Is your Alternate hypothesis '!=','>', or '<'?"))
-            one_prop_z_test(p1, psample1, n1, p2, psample2, n2, alpha, prop)
+            p1 = 0
+            n1 = 0
+            p2 = 0
+            n2 = 0
+            alpha = 0
+            alt = ""
+
+            try
+                p1 = parse(Float64, input("What is your first sample proportion? "))
+                n1 = parse(Float64, input("What is your first sample size? "))
+                p2 = parse(Float64, input("What is your second sample proportion? "))
+                n2 = parse(Float64, input("What is your second sample size? "))
+                alpha = parse(Float64, input("What is your alpha level?"))
+                alt = input("Is your alternate hypothesis '!=', '>', or '<'? ")
+            catch
+                terminate("You must enter a numeric value.")
+            end
+
+            if alt != "!=" && alt != ">" && alt != "<"
+                terminate("That wasn't an option.")
+            end
+
+            p_value = two_prop_z_test(p1, n1, p2, n2, alpha, alt)
+            println("The calculated p-value is ", abs(p_value))
+            println("If the difference between the population proportions is 0, then the probability of observing a sample proportion difference of ", abs(p1-p2), " is ", abs(p_value), ".")
+
+
         end
     elseif q2 == "i"
         if q3 == "1"
