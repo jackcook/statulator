@@ -97,3 +97,20 @@ function z_test(x̄, μ0, sx, n, alpha, alt)
         return -1
     end
 end
+
+function two_sample_z_interval(x̄1, sx1, n1, x̄2, sx2, n2, lvl)
+    distribution = Normal()
+
+    if n1 < 30 || n2 < 30
+        println("Conditions weren't met, using t-distribution...\n")
+        distribution = TDist(n1 + n2 - 2)
+    end
+
+    standard_error = sqrt((((n1 - 1) * sx1 ^ 2) + ((n2 - 1) * sx2 ^ 2)) / (n1 + n2 - 2)) * sqrt(1 / n1 + 1 / n2)
+    critical_value = quantile(distribution, lvl + (1 - lvl) / 2)
+
+    lowest_value = round(x̄1 - x̄2 - critical_value * standard_error, 4)
+    highest_value = round(x̄1 - x̄2 + critical_value * standard_error, 4)
+
+    return ConfidenceInterval(lowest_value, highest_value)
+end

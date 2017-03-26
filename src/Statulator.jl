@@ -177,7 +177,30 @@ elseif q1 == "m"
             println("The interval is (", interval.lower, ", ", interval.upper, ")")
             println("We can state with ", (lvl*100), "% confidence that the true mean lies between ", interval.lower, " and ", interval.upper, ".")
         elseif q3 == "2"
-            println("2-proportion Z-interval")
+            x̄1 = 0
+            sx1 = 0
+            x̄2 = 0
+            sx2 = 0
+            n1 = 0
+            n2 = 0
+            lvl = 0
+
+            try
+                x̄1 = parse(Float64, input("What is your first sample mean? "))
+                sx1 = parse(Float64, input("What is your first sample standard deviation? "))
+                n1 = parse(Float64, input("What is your first sample size? "))
+                x̄2 = parse(Float64, input("What is your second sample mean? "))
+                sx2 = parse(Float64, input("What is your second sample standard deviation? "))
+                n2 = parse(Float64, input("What is your second sample size? "))
+                lvl = parse(Float64, input("What is your needed confidence level? "))
+            catch
+                terminate("You must enter a numeric value.")
+            end
+
+            interval = two_sample_z_interval(x̄1, sx1, n1, x̄2, sx2, n2, lvl)
+
+            println("The interval is (", interval.lower, ", ", interval.upper, ")")
+            println("We can state with ", (lvl*100), "% confidence that the difference between the true means lies between ", interval.lower, " and ", interval.upper, ".")
         end
     end
 end

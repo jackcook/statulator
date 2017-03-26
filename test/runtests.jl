@@ -25,3 +25,6 @@ include("../src/calculations.jl")
 @test z_test(50.0, 49.0, 5.0, 100.0, 0.95, "!=") == 0.0455
 @test z_test(49.0, 50.0, 5.0, 100.0, 0.95, "<") == 0.0228
 @test z_test(51.0, 50.0, 5.0, 100.0, 0.95, ">") == 0.0228
+
+@test two_sample_z_interval(60, 5, 100, 50, 5, 100, 0.95) == ConfidenceInterval(8.6141, 11.3859)
+@test two_sample_z_interval(6, 1, 10, 50, 5, 100, 0.95) == ConfidenceInterval(-47.1528, -40.8472)
