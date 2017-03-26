@@ -8,5 +8,7 @@ julia:
 notifications:
   email: false
 after_success:
+  - pwd
+  - ls
   - julia -e 'cd("Statulator"); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
   - julia -e 'cd("Statulator"); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
