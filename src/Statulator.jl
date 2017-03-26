@@ -129,7 +129,30 @@ if q1 == "p"
 elseif q1 == "m"
     if q2 == "t"
         if q3 == "1"
-            println("Z-test")
+            x̄ = 0
+            μ0 = 0
+            sx = 0
+            n = 0
+            alpha = 0
+            alt = ""
+
+            try
+                x̄ = parse(Float64, input("What is your sample mean? "))
+                μ0 = parse(Float64, input("What is your assumed population mean? "))
+                sx = parse(Float64, input("What is your sample standard deviation? "))
+                n = parse(Float64, input("What is your sample size? "))
+                alpha = parse(Float64, input("What is your alpha level? "))
+                alt = input("Is your alternate hypothesis '!=', '>', or '<'? ")
+            catch
+                terminate("You must enter a numeric value.")
+            end
+
+            if alt != "!=" && alt != ">" && alt != "<"
+                terminate("That wasn't an option.")
+            end
+
+            p_value = z_test(p, p0, n, alpha, alt, p_pooled)
+            println("The calculated p-value is ", p-value)
         elseif q3 == "2"
             println("2-sample Z-test")
         end

@@ -79,3 +79,21 @@ function z_interval(x̄, sx, n, lvl)
 
     return ConfidenceInterval(lowest_value, highest_value)
 end
+
+function z_test(x̄, μ0, sx, n, alpha, alt)
+    distribution = Normal(μ0, sx / sqrt(n))
+
+    if alt == "<"
+        return round(cdf(distribution, x̄), 4)
+    elseif alt == ">"
+        return round(1 - cdf(distribution, x̄), 4)
+    elseif alt == "!="
+        if x̄ > μ0
+            return round(2 * (1 - cdf(distribution, x̄)), 4)
+        else
+            return round(2 * cdf(distribution, x̄), 4)
+        end
+    else
+        return -1
+    end
+end
