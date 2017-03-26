@@ -115,3 +115,19 @@ function two_sample_z_interval(x̄1, sx1, n1, x̄2, sx2, n2, lvl)
 
     return ConfidenceInterval(lowest_value, highest_value)
 end
+
+function two_sample_z_test(x̄1, sx1, n1, x̄2, sx2, n2, lvl, alt)
+    z = (x̄1 - x̄2) / sqrt((sx1^2 / n1 + sx2^2 / n2))
+
+    standard_normal = Normal()
+
+    if alt == "<"
+        return round(cdf(standard_normal, abs(z)), 4)
+    elseif alt == ">"
+        return round(1 - cdf(standard_normal, abs(z)), 4)
+    elseif alt == "!="
+        return round(2 * (1 - cdf(standard_normal, abs(z))), 4)
+    else
+        return -1
+    end
+end

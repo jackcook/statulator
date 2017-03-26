@@ -149,10 +149,38 @@ elseif q1 == "m"
                 terminate("That wasn't an option.")
             end
 
-            p_value = z_test(p, p0, n, alpha, alt, p_pooled)
+            p_value = z_test(p, p0, sx, n, alpha, alt)
             println("The calculated p-value is ", p-value)
         elseif q3 == "2"
-            println("2-sample Z-test")
+            x̄1 = 0
+            sx1 = 0
+            n1 = 0
+            x̄2 = 0
+            sx2 = 0
+            n2 = 0
+            alpha = 0
+            alt = ""
+
+            try
+                x̄1 = parse(Float64, input("What is your first sample mean? "))
+                sx1 = parse(Float64, input("What is your first sample standard deviation? "))
+                n1 = parse(Float64, input("What is your first sample size? "))
+                x̄2 = parse(Float64, input("What is your second sample mean? "))
+                sx2 = parse(Float64, input("What is your second sample standard deviation? "))
+                n2 = parse(Float64, input("What is your second sample size? "))
+                alpha = parse(Float64, input("What is your alpha level? "))
+                alt = input("Is your alternate hypothesis '!=', '>', or '<'? ")
+            catch
+                terminate("You must enter a numeric value.")
+            end
+
+            if alt != "!=" && alt != ">" && alt != "<"
+                terminate("That wasn't an option.")
+            end
+
+            p_value = two_sample_z_test(x̄1, sx1, n1, x̄2, sx2, n2, alpha, alt)
+            println("The calculated p-value is ", p_value)
+            println("If the difference between the population proportions is 0, then the probability of observing a sample proportion difference of ", abs(x̄1 - x̄2), " is ", abs(p_value), ".")
         end
     elseif q2 == "i"
         if q3 == "1"

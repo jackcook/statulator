@@ -21,10 +21,16 @@ include("../src/calculations.jl")
 # n < 30, t-distribution should be used
 @test z_interval(50, 5, 20, 0.95) == ConfidenceInterval(47.6599, 52.3401)
 
-@test z_test(49.0, 50.0, 5.0, 100.0, 0.95, "!=") == 0.0455
-@test z_test(50.0, 49.0, 5.0, 100.0, 0.95, "!=") == 0.0455
-@test z_test(49.0, 50.0, 5.0, 100.0, 0.95, "<") == 0.0228
-@test z_test(51.0, 50.0, 5.0, 100.0, 0.95, ">") == 0.0228
+@test z_test(49, 50, 5, 100, 0.95, "!=") == 0.0455
+@test z_test(50, 49, 5, 100, 0.95, "!=") == 0.0455
+@test z_test(49, 50, 5, 100, 0.95, "<") == 0.0228
+@test z_test(51, 50, 5, 100, 0.95, ">") == 0.0228
 
 @test two_sample_z_interval(60, 5, 100, 50, 5, 100, 0.95) == ConfidenceInterval(8.6141, 11.3859)
+# n1 < 30, t-distribution should be used
 @test two_sample_z_interval(6, 1, 10, 50, 5, 100, 0.95) == ConfidenceInterval(-47.1528, -40.8472)
+
+@test two_sample_z_test(51, 5, 100, 50, 5, 100, 0.95, ">") == 0.0786
+@test two_sample_z_test(51, 5, 100, 50, 5, 100, 0.95, "<") == 0.9214
+@test two_sample_z_test(51, 5, 100, 50, 5, 100, 0.95, "!=") == 0.1573
+@test two_sample_z_test(50, 5, 100, 51, 5, 100, 0.95, "!=") == 0.1573
