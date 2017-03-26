@@ -12,6 +12,11 @@ include("../src/calculations.jl")
 
 @test two_prop_z_int(0.5, 100, 0.7, 200, 0.95) == ConfidenceInterval(-0.3168, -0.0832)
 
+@test two_prop_z_test(0.5, 100, 0.6, 200, 0.95, "!=") == 0.0994
+@test two_prop_z_test(0.6, 200, 0.5, 100, 0.95, "!=") == 0.0994
+@test two_prop_z_test(0.5, 100, 0.6, 200, 0.95, ">") == 0.9503
+@test two_prop_z_test(0.5, 100, 0.6, 200, 0.95, "<") == 0.0497
+
 @test z_interval(50, 5, 100, 0.95) == ConfidenceInterval(49.02, 50.98)
 # n < 30, t-distribution should be used
 @test z_interval(50, 5, 20, 0.95) == ConfidenceInterval(47.6599, 52.3401)
