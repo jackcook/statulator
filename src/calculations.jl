@@ -34,17 +34,18 @@ end
 
 function two_prop_z_test(p1, n1, p2, n2, alpha, alt)
     p_pooled = (p1*n1 + p2*n2) / (n1 + n2)
-    distribution = Normal(0, sqrt((p_pooled/n1) + (p_pooled/n2)))
+    p_diff = p1 - p2
+    distribution = Normal(0, sqrt((p_pooled*(1-p_pooled)/n1) + (p_pooled*(1-p_pooled)/n2)))
 
     if alt == "<"
-        return round(cdf(distribution, p1-p2), 4)
+        return round(cdf(distribution, p_diff), 4)
     elseif alt == ">"
-        return round(1 - cdf(distribution, p1-p2), 4)
+        return round(1 - cdf(distribution, p_diff), 4)
     elseif alt == "!="
-        if abs(p1-p2) > p_pooled
-            return round(2 * (1 - cdf(distribution, p1-p2)), 4)
+        if p_diff > 0
+            return round(2 * (1 - cdf(distribution, p_diff)), 4)
         else
-            return round(2 * cdf(distribution, p1-p2), 4)
+            return round(2 * cdf(distribution, p_diff), 4)
         end
     else
         return -1

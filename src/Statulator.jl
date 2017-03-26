@@ -82,8 +82,6 @@ if q1 == "p"
             p_value = two_prop_z_test(p1, n1, p2, n2, alpha, alt)
             println("The calculated p-value is ", abs(p_value))
             println("If the difference between the population proportions is 0, then the probability of observing a sample proportion difference of ", abs(p1-p2), " is ", abs(p_value), ".")
-
-
         end
     elseif q2 == "i"
         if q3 == "1"
