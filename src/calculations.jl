@@ -5,11 +5,6 @@ include("confidence_interval.jl")
 function one_prop_z_int(p, n, lvl)
     distribution = Normal()
 
-    if n * p < 10 || n * (1 - p) < 10
-        println("Conditions weren't met, using t-distribution...\n")
-        distribution = TDist(n - 1)
-    end
-
     standard_error = sqrt((p * (1-p)) / n)
     critical_value = quantile(distribution, lvl + (1 - lvl) / 2)
 
@@ -21,11 +16,6 @@ end
 
 function one_prop_z_test(p, p0, n, alpha, alt)
     distribution = Normal(p0, sqrt((p0 * (1-p0)) / n))
-
-    if n * p < 10 || n * (1 - p) < 10
-        println("Conditions weren't met, using t-distribution...\n")
-        distribution = TDist(1)
-    end
 
     if alt == "<"
         return round(cdf(distribution, p), 4)
@@ -57,7 +47,7 @@ end
 function z_interval(x̄, sx, n, lvl)
     distribution = Normal()
 
-    if n >= 30
+    if n < 30
         println("Conditions weren't met, using t-distribution...\n")
         distribution = TDist(n - 1)
     end
