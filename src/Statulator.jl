@@ -55,6 +55,7 @@ if q1 == "p"
 
             p_value = one_prop_z_test(p, p0, n, alpha, alt)
             println("The calculated p-value is ", p_value)
+            println("If the population proportion is ", p0, " then the probability of observing a sample proportion of ", p, " is ", p_value, ".")
         elseif q3 == "2"
             p1 = parse(Float64, input("What is your first population proportion? "))
             psample1 = parse(Float64, input("What is your first sample proportion?"))
